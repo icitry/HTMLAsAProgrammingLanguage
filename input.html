@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html>
+
+<body>
+<script type="jsx">
+        <declvar name="a">
+            <assign>
+                <lit>0</lit>
+            </assign>
+        </declvar>
+        <declvar name="b">
+            <assign>
+                <lit>0</lit>
+            </assign>
+        </declvar>
+        <func>
+            <sign name="divide">
+                <param name="a" />
+                <param name="b" />
+            </sign>
+            <block>
+                <declvar name="tmp">
+                    <assign>
+                        <var name="a"></var>
+                        <op>%</op>
+                        <var name="b"></var>
+                    </assign>
+                </declvar>
+                <declvar name="tmp2">
+                    <assign>
+                        <lit>0</lit>
+                    </assign>
+                </declvar>
+
+                <if>
+                    <cond>
+                        <var name="tmp"></var>
+                        <op>!=</op>
+                        <lit>0</lit>
+                    </cond>
+                    <block>
+                        <var name="tmp2">
+                            <assign>
+                                <lit>1</lit>
+                            </assign>
+                        </var>
+                    </block>
+                    <elif>
+                        <cond>
+                            <parentheses>
+                                <var name="a"></var>
+                                <op>%</op>
+                                <lit>2</lit>
+                            </parentheses>
+                            <op>==</op>
+                            <lit>1</lit>
+                        </cond>
+                        <block>
+                            <var name="tmp2">
+                            <assign>
+                                <lit>2</lit>
+                            </assign>
+                        </var>
+                        </block>
+                    </elif>
+                    <else>
+                        <block>
+                            <var name="tmp2">
+                                <assign>
+                                    <lit>3</lit>
+                                </assign>
+                            </var>
+                        </block>
+                    </else>
+                </if>
+
+                <return>
+                    <parentheses>
+                        <var name="a"></var>
+                        <op>/</op>
+                        <var name="b"></var>
+                    </parentheses>
+                    <op>+</op>
+                    <var name="tmp2"></var>
+                </return>
+            </block>
+        </func>
+
+        <func type="async">
+            <sign name="main">
+                <meta type="cli-main"></meta>
+            </sign>
+            <block>
+                <while>
+                    <cond>
+                        <lit>true</lit>
+                    </cond>
+                    <block>
+                        <declvar name="tmp">
+                            <assign>
+                                <read-cli />
+                            </assign>
+                        </declvar>
+
+                        <if>
+                            <cond>
+                                <var name="tmp"></var>
+                                <op>==</op>
+                                <lit type="string">quit</lit>
+                            </cond>
+                            <block>
+                                <break />
+                            </block>
+                        </if>
+
+                        <write-cli>
+                            <var name="tmp"></var>
+                            <op>+</op>
+                            <lit type="string">, dude</lit>
+                        </write-cli>
+                    </block>
+                </while>
+
+                <for>
+                    <init>
+                        <declvar name="i">
+                            <assign>
+                                <lit>0</lit>
+                            </assign>
+                        </declvar>
+                    </init>
+                    <cond>
+                        <var name="i"></var>
+                        <op>&lt;</op>
+                        <lit>5</lit>
+                    </cond>
+                    <incr name="i">
+                        <lit>1</lit>
+                    </incr>
+                    <block>
+                        <write-cli>
+                            <lit type="string">bye bye</lit>
+                        </write-cli>
+                    </block>
+                </for>
+
+                <return>
+                    <call name="divide">
+                        <param name="a"></param>
+                        <param name="b"></param>
+                    </call>
+                </return>
+            </block>
+        </func>
+
+        <func>
+            <sign name="logToConsole" />
+            <block>
+                <log>
+                    <lit type="string">suh dude</lit>
+                </log>
+            </block>
+        </func>
+</script>
+<div class="take_input">
+    <input type="number" bind="a"/>
+    <input type="number" bind="b"/>
+    <div class="output">
+        <call name="divide">
+            <param name="a"></param>
+            <param name="b"></param>
+        </call>
+    </div>
+</div>
+<div style="width: 50rem; height: 20rem;">
+    <cli main="main"/>
+</div>
+<div style="margin-top: 5rem;">
+    <button onclick="logToConsole">Log</button>
+</div>
+</body>
+
+</html>
